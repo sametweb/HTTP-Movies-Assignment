@@ -17,21 +17,30 @@ export default class MovieList extends Component {
       .catch(err => console.log(err.response));
   }
 
+  removeFromList = id =>
+    this.setState({
+      movies: this.state.movies.filter(movie => movie.id !== id)
+    });
+
   render() {
     return (
       <div className="movie-list">
         {this.state.movies.map(movie => (
-          <MovieDetails key={movie.id} movie={movie} />
+          <MovieDetails
+            key={movie.id}
+            movie={movie}
+            remove={this.removeFromList}
+          />
         ))}
       </div>
     );
   }
 }
 
-function MovieDetails({ movie }) {
+function MovieDetails({ movie, remove }) {
   return (
     <Link to={`/movies/${movie.id}`}>
-      <MovieCard movie={movie} />
+      <MovieCard movie={movie} remove={remove} />
     </Link>
   );
 }

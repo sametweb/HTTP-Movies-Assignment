@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -74,4 +78,31 @@ body {
 .movie-warning {
   color: red;
   text-align: center;
+}
+
+.form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form .star {
+  padding: 4px 8px;
+  background: #ddd;
+  border-radius: 20px;
+  margin: 0 5px 0 0;
+}
+
+.form .star:hover {
+  background: #ccc;
+}
+
+.form .star .delete {
+  color: red;
+  font-weight: bold;
+}
+
+label,
+.stars {
+  padding: 5px 0;
 }

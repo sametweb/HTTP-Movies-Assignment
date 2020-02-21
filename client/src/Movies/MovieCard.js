@@ -1,7 +1,21 @@
-import React from 'react';
+import React from "react";
+import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 const MovieCard = props => {
-  const { title, director, metascore, stars } = props.movie;
+  const { id, title, director, metascore, stars } = props.movie;
+
+  const deleteMovie = id => {
+    axios
+      .delete(`http://localhost:5000/api/movies/${id}`)
+      .then(res => {
+        props.remove(res.data);
+        alert("Movie successfully deleted.");
+      })
+      .catch(err => {
+        alert("Problem deleting the movie. Try again.");
+      });
+  };
   return (
     <div className="movie-card">
       <h2>{title}</h2>
@@ -18,8 +32,26 @@ const MovieCard = props => {
           {star}
         </div>
       ))}
+      <div>
+        <button
+          onClick={e => {
+            e.preventDefault();
+            props.history.push(`/update-movie/${id}`);
+          }}
+        >
+          Edit
+        </button>
+        <button
+          onClick={e => {
+            e.preventDefault();
+            deleteMovie(id);
+          }}
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 };
 
-export default MovieCard;
+export default withRouter(MovieCard);
